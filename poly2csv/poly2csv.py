@@ -37,16 +37,18 @@ def main():
     # print selection.getCount()
     ## обработка события нет выбранных объектов
     for f in selection:
-        ## обработка сохранения файла с помощью SaveFileDialog
-        fname = 'D:\\' + f.Name_short + '.csv'
-        csvFile = open(fname, 'wb')
+        ## обработка сохранения файла с помощью saveFileDialog()
+        # fname = 'D:\\' + f.Name_short + '.csv'
+        filePath = saveFileDialog('Save CSV file',)
+       
+        csvFile = open(str(filePath[0]), 'wb')
         coordWriter = csv.writer(csvFile, delimiter=';', quoting=csv.QUOTE_MINIMAL)
         
-		numVert = f.geometry().getNumVertices()
+        numVert = f.geometry().getNumVertices()
         # print numVert
         ## обработка отсутствия вертексов если объект выбран через таблицу но имеет нулевую геометрию
         
-		gt = f.geometry().getGeometryType().name
+        gt = f.geometry().getGeometryType().name
         # print gt
         
         for v in range(0,numVert):
