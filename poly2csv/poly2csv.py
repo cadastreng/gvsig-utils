@@ -11,6 +11,7 @@ from commonsdialog import *
 
 currentViewErrorMessage = "There isn't an active View! Please, open a View and ativate a target layer."
 currentLayerErrorMessage = "There isn't an active layer or activated more than one layer! Please, activate a target layer."
+getSelectionErrorMessage = "There isn't a selected feature in the active layer! Please, select a feature or some features."
 filePathErrorMessage = "Please, enter a name and extesion of CSV file: test.csv, for example."
 errorDialogTitle = "Error"
 
@@ -34,8 +35,10 @@ def main():
     # print tp
     
     selection = layer.getSelection()
-    # print selection.getCount()
-    ## обработка события нет выбранных объектов
+    if selection.getCount()==0:
+        msgbox(getSelectionErrorMessage, errorDialogTitle, WARNING)
+        return
+    
     for f in selection:
         ## обработка сохранения файла с помощью saveFileDialog()
         # fname = 'D:\\' + f.Name_short + '.csv'
