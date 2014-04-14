@@ -11,6 +11,7 @@ from commonsdialog import *
 
 currentViewErrorMessage = "There isn't an active View! Please, open a View and ativate a target layer."
 currentLayerErrorMessage = "There isn't an active layer or activated more than one layer! Please, activate a target layer."
+filePathErrorMessage = "Please, enter a name and extesion of CSV file: test.csv, for example."
 errorDialogTitle = "Error"
 
 
@@ -27,7 +28,6 @@ def main():
     layer = currentLayer()
     if layer is None:
         msgbox(currentLayerErrorMessage, errorDialogTitle, WARNING)
-        # os._exit(1)
         return
 
     tp = layer.getTypeVectorLayer().name
@@ -40,6 +40,9 @@ def main():
         ## обработка сохранения файла с помощью saveFileDialog()
         # fname = 'D:\\' + f.Name_short + '.csv'
         filePath = saveFileDialog('Save CSV file',)
+        if not filePath:
+            msgbox(filePathErrorMessage, errorDialogTitle, WARNING)
+            return
        
         csvFile = open(str(filePath[0]), 'wb')
         coordWriter = csv.writer(csvFile, delimiter=';', quoting=csv.QUOTE_MINIMAL)
